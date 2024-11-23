@@ -1,0 +1,16 @@
+input: .
+output: .retype
+url: # Add your website address here
+branding:
+  title: Lazy TypeScript
+edit:
+  repo: "https://github.com/luizffgv/ts-guide-lazy"
+footer:
+  copyright:
+    "The Lazy TypeScript Guidelines &copy; 2024 by Luiz Fernando F. G. Valle is
+    licensed under [CC BY-NC-SA
+    4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)"
+links:
+  - text: GitHub
+    link: "https://github.com/luizffgv/ts-guide-lazy"
+    icon: mark-github

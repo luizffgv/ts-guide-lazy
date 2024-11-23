@@ -1,0 +1,28 @@
+{
+  "name": "ts-guide-lazy",
+  "description": "The Lazy TypeScript Guidelines",
+  "version": "1.0.0",
+  "author": "Luiz Fernando F. G. Valle <im@luizf.dev>",
+  "bugs": {
+    "url": "https://github.com/luizffgv/ts-guide-lazy/issues"
+  },
+  "dependencies": {
+    "retype": "^0.2.0"
+  },
+  "devDependencies": {
+    "fixpack": "^4.0.0",
+    "prettier": "^3.3.3"
+  },
+  "homepage": "https://github.com/luizffgv/ts-guide-lazy#readme",
+  "prettier": {
+    "proseWrap": "always"
+  },
+  "private": "true",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luizffgv/ts-guide-lazy.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
