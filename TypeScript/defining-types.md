@@ -1,10 +1,49 @@
 # Defining types
 
-## Avoid enums
+## Variants
+
+Enums should be used when declaring variants based on a fixed set of values.
+
++++ :icon-check-circle: Good
+
+```ts
+export enum Variant {
+  DEFAULT = "primary",
+  PRIMARY = "primary",
+  SECONDARY = "secondary",
+  TERTIARY = "tertiary",
+}
+
+type Props = {
+  variant: Variant;
+};
+
+export declare function Button(props: Props): JSX.Element;
+```
+
+Here the enum constants are implementation details.
+
++++ :icon-circle-slash: Bad
+
+```ts
+export type Variant = "primary" | "secondary" | "tertiary";
+
+type Props = {
+  variant: Variant;
+};
+
+export declare function Button(props: Props): JSX.Element;
+```
+
++++
+
+!!! Don't replace enums by arrays or objects with const assertions
 
 Enums can be replaced by arrays or objects with const assertions, which are
 straightforward and don't introduce as many abstractions and implementation
-details as enums do.
+details as enums do, but they are less type-safe because the type checking is
+based on the values themselves rather than which enum was used. Enums have type
+checking even if the underlying constant is the same.
 
 Let's see an example enum and two ways of replacing it.
 
@@ -51,6 +90,8 @@ type Variant = "primary" | "secondary" | "tertiary";
 ```
 
 +++
+
+!!!
 
 ## Type parameters
 
