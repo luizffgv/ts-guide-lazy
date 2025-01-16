@@ -1,5 +1,79 @@
 # Memoization
 
+## When to use `useMemo`
+
+### Replacing `useEffect` for transformations and `useState` for derived state
+
+Sometimes, you may find a `useEffect` that is not really _interacting_ with
+anything else, just updating one or more dependent states based on other
+states/props.
+
+If the dependent states are always updated along with the state/prop they depend
+on, you can replace the `useState`s and the `useEffect`s with `useMemo`s to
+calculate the derived states.
+
+This prevents unnecessary re-renders and cascading effects. Be sure to check out
+the official React guide on this topic, as it provides the same reasoning as
+mine.
+
+[!ref target="blank" text="Updating state based on props or state"](https://react.dev/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state)
+
++++ :icon-circle-slash: Bad
+
+```tsx
+export function Books() {
+  const books = useBooks();
+
+  const [nameFilter, setNameFilter] = useState("");
+
+  const [filteredBooks, setFilteredBooks] = useState(books);
+
+  useEffect(() => {
+    setFilteredBooks(books.filter((book) => book.name.includes(nameFilter)));
+  }, [books, nameFilter]);
+
+  return (
+    <>
+      <SearchInput value={nameFilter} onChange={setNameFilter} />
+      <BooksList books={filteredBooks} />
+    </>
+  );
+}
+```
+
+The code above is bad because after the search input changes or the list of
+books changes, the `<BooksList>` child component still renders once with the old
+filtered books before the effect runs and the new `<BooksList>` is rendered and
+committed. That one render with outdated data can be problematic in some cases.
+
++++ :icon-check-circle: Good
+
+```tsx
+export function Books() {
+  const books = useBooks();
+
+  const [nameFilter, setNameFilter] = useState("");
+
+  const filteredBooks = useMemo(
+    () => books.filter((book) => book.name.includes(nameFilter)),
+    [books, nameFilter],
+  );
+
+  return (
+    <>
+      <SearchInput value={nameFilter} onChange={setNameFilter} />
+      <BooksList books={filteredBooks} />
+    </>
+  );
+}
+```
+
+Here the `filteredBooks` is calculated with `useMemo` and is always up-to-date
+before `<BooksList>` is rendered. This way, `<BooksList>` never renders with an
+outdated list of books.
+
++++
+
 ## When to use `useCallback`
 
 `useCallback` returns a memoized version of a callback function that only
